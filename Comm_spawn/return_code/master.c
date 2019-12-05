@@ -29,13 +29,18 @@ int main(int argc, char **argv)
   MPI_Info_create(&info);
 
   MPI_Comm_spawn("./worker", spawn_argv_success, maxprocs, info, 0, MPI_COMM_SELF, &inter_comm, MPI_ERRCODES_IGNORE);
-
   for(iproc=0; iproc<maxprocs; ++iproc){
     MPI_Recv(&ret, 1, MPI_INT, iproc, 0, inter_comm, &mpistatus);
     printf("return code from %d: %d\n", iproc, ret);
   }
 
   MPI_Comm_spawn("./worker", spawn_argv_fail, maxprocs, info, 0, MPI_COMM_SELF, &inter_comm, MPI_ERRCODES_IGNORE);
+  for(iproc=0; iproc<maxprocs; ++iproc){
+    MPI_Recv(&ret, 1, MPI_INT, iproc, 0, inter_comm, &mpistatus);
+    printf("return code from %d: %d\n", iproc, ret);
+  }
+
+  MPI_Comm_spawn("./worker", spawn_argv_success, maxprocs, info, 0, MPI_COMM_SELF, &inter_comm, MPI_ERRCODES_IGNORE);
   for(iproc=0; iproc<maxprocs; ++iproc){
     MPI_Recv(&ret, 1, MPI_INT, iproc, 0, inter_comm, &mpistatus);
     printf("return code from %d: %d\n", iproc, ret);
