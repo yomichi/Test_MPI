@@ -12,7 +12,9 @@ if(MPI_FOUND)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MPI_C_LINK_FLAGS}")
 endif(MPI_FOUND)
 
-add_executable(hoge test.c)
-target_link_libraries(hoge "${MPI_C_LIBRARIES}")
+foreach(tgt test)
+  add_executable(${tgt} ${tgt}.c)
+  target_link_libraries(${tgt} "${MPI_C_LIBRARIES}")
+endforeach()
 
 message(STATUS ${CMAKE_C_COMPILER})
