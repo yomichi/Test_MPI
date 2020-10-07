@@ -1,3 +1,5 @@
+# Small example for MPI_Comm_spawn
+
 ```
 $ vim Makefile  # to modify compiler name and options 
 $ make
