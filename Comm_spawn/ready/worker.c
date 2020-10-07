@@ -18,6 +18,7 @@ int main(int argc, char **argv)
   if(parent != MPI_COMM_NULL){
     printf("  I'm spawned by MPI_Comm_spawn\n");
     MPI_Send(&ret, 1, MPI_INT, 0, 0, parent);
+    MPI_Comm_disconnect(&parent);
   }
 
   MPI_Finalize();
