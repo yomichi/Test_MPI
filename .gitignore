@@ -1,4 +1,6 @@
 build
+master
+worker
 
 # Prerequisites
 *.d

@@ -21,8 +21,9 @@ int main(int argc, char **argv)
   MPI_Comm_disconnect(&child);
   printf("Master received value: %d\n", ret);
 
+  free(err_spawn);
+
   MPI_Finalize();
 
-  free(err_spawn);
   return 0;
 }
