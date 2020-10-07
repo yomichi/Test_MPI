@@ -5,3 +5,6 @@ master: master.c
 
 worker: worker.c
 	mpicc -o worker worker.c
+
+clean:
+	rm -f master worker
