@@ -4,7 +4,9 @@
 
 int main(int argc, char **argv)
 {
-  int num_spawn = 1;
+  int num_spawn = 2;
+  int num_loop = 60;
+  int i;
   int* err_spawn = (int*)calloc(sizeof(int), num_spawn);
   MPI_Status status;
 
@@ -15,11 +17,12 @@ int main(int argc, char **argv)
 
   printf("I'm parent\n");
 
-  MPI_Comm_spawn("./worker", MPI_ARGV_NULL, num_spawn, MPI_INFO_NULL, 0, MPI_COMM_WORLD, &child, err_spawn);
-
-  MPI_Recv(&ret, 1, MPI_INT, 0, 0, child, &status);
-  MPI_Comm_disconnect(&child);
-  printf("Master received value: %d\n", ret);
+  for (i = 0; i < num_loop; i++){
+    MPI_Comm_spawn("./worker", MPI_ARGV_NULL, num_spawn, MPI_INFO_NULL, 0, MPI_COMM_SELF, &child, err_spawn);
+    MPI_Recv(&ret, 1, MPI_INT, 0, 0, child, &status);
+    MPI_Comm_disconnect(&child);
+    printf("Master received value: %d\n", ret);
+  }
 
   free(err_spawn);
 
