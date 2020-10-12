@@ -4,8 +4,8 @@
 
 int main(int argc, char **argv)
 {
-  int num_spawn = 2;
-  int num_loop = 60;
+  int num_spawn = argc > 1 ? atoi(argv[1]):1;
+  int num_loop = argc > 2 ? atoi(argv[2]):1;
   int i;
   int* err_spawn = (int*)calloc(sizeof(int), num_spawn);
   MPI_Status status;
