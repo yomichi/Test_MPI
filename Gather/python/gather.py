@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from mpi4py import MPI
 
@@ -13,6 +14,7 @@ def gather(N):
             print(f"{r}:", end="")
             for x in recv[r]:
                 print(f" {x}", end="")
+                sys.stdout.flush()
             print()
         print()
 
